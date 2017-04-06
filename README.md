@@ -24,7 +24,7 @@ npm run dev
   ![](https://github.com/Erdayo/img/blob/master/vueQ-%E8%81%94%E7%B3%BB%E5%88%97%E8%A1%A8.png)
 
 > 对话:接入聊天机器人
-  ![](https://github.com/Erdayo/img/blob/master/vueQ-%E5%88%A0%E9%99%A4%E8%81%8A%E5%A4%A9%E5%90%8E%E9%87%8D%E6%96%B0%E5%88%9B%E5%BB%BA.gif)
+  ![](https://github.com/Erdayo/img/blob/master/vueQ-%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%81%8A%E5%A4%A9.gif)
 
 > 侧边栏
   ![](https://github.com/Erdayo/img/blob/master/vueQ-%E4%BE%A7%E8%BE%B9%E6%A0%8F.png)
