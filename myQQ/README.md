@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+> vue + vue-router + vue-touch + axios
+
 ## Build Setup
 
 ``` bash
