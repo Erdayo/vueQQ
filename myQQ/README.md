@@ -15,10 +15,6 @@ npm run dev
 
 
 ```
-## 最新更新 ##
-更新了运行环境,可以在线预览  
-https://erdayo.github.io/vueQQ/
-
 
 ## 已完成 ##
 
