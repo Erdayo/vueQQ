@@ -20,12 +20,3 @@ http.get('http://news-at.zhihu.com/api/4/news/latest',function (res) {
 }).on('error',function (e) {
     console.log('Got error: ' + e.message);
 });
-
-
-
-
-
-
-
-
-
