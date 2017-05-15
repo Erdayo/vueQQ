@@ -59,7 +59,11 @@
         }
         if (name === 'Other') {
           this.isShow = false
-          return '其他'
+          return '日报'
+        }
+        if (name === 'Article') {
+          this.isShow = false
+          return '文章详情'
         }
       },
       isSwipeFunc: function () {

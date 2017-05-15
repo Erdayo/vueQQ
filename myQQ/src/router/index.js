@@ -5,7 +5,10 @@ import NotFound from '@/components/NotFound'
 import Contact from '@/components/Contact'
 import Dialog from '@/components/Dialog'
 import Other from '@/components/Other'
+import Setting from '@/components/Setting'
+import Information from '@/components/Information'
 import Vuetouch from 'vue-touch'
+import Article from '@/components/Article'
 
 Vue.use(Router)
 Vue.use(Vuetouch, {name: 'v-touch'})
@@ -36,6 +39,21 @@ export default new Router({
       path: '/other',
       name: 'Other',
       component: Other
+    },
+    {
+      path: '/setting',
+      name: 'Setting',
+      component: Setting
+    },
+    {
+      path: '/information',
+      name: 'Information',
+      component: Information
+    },
+    {
+      path: '/article/:id',
+      name: 'Article',
+      component: Article
     }
   ]
 })

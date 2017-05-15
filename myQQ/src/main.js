@@ -9,6 +9,7 @@ import './assets/css/common.css'
 import './assets/css/animate.css'
 
 Vue.config.productionTip = false
+// axios.defaults.withCredentials = true
 Vue.prototype.$ajax = axios
 Vue.use(VueTouch, {name: 'v-touch'})
 

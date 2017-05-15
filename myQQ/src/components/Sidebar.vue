@@ -14,7 +14,9 @@
     </div>
     <div class="third">
       <ul>
-        <li>setting</li>
+        <li @click="swipeFunc()">
+          <router-link :to="settingPath">setting</router-link>
+        </li>
         <li @click="swipeFunc()">close</li>
       </ul>
     </div>
@@ -35,11 +37,12 @@
           {url: '', name: 'link3'},
           {url: '', name: 'link4'},
           {url: '', name: 'link5'}
-        ]
+        ],
+        settingPath: '/setting'
       }
     },
     methods: {
-      swipeFunc: function () {
+      swipeFunc: function () {    // 向父组件传递值
         this.$emit('swipeoff', false)
       }
     }
@@ -115,6 +118,8 @@
     border-radius: 3px;
     box-shadow: 2px 2px 5px #eee;
   }
+
+  .sidebar .third li a{ color: #12b7f5;}
 
   .sidebar .third li:first-child {
     float: left;

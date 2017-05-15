@@ -13,7 +13,7 @@
       }
     },
     methods: {
-      sendDataFunc: function () {
+      sendDataFunc: function () {   // 向父组件传递输入的关键词
         let self = this
         this.$emit('change', self.keywords)
       }
@@ -23,12 +23,11 @@
 <style>
   .search {
     background: #fff;
-    height: 30px;
-    line-height: 30px;
     position: absolute;
     top: 60px;
     width: 100%;
     transition: .3s linear;
+    box-sizing: border-box;
   }
   .search.swipe{
     margin-left: 80%;
@@ -43,6 +42,8 @@
     text-align: center;
     color: #666;
     margin: 0 auto;
+    height: 30px;
+    line-height: 30px;
   }
 
   .search input:focus {

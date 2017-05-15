@@ -3,12 +3,12 @@
     <v-touch class="touch" v-on:swipeleft="isSwipe=false" v-on:swiperight="isSwipe=true"></v-touch>
     <v-touch v-on:swipeleft="isSwipe=false" v-on:swiperight="isSwipe=true">
       <headers :class="{swipe:isSwipe}" @swipeon="isSwipeFunc" :current-name="$route.name" :current-data="sendData()"></headers>
-      <search :class="{swipe:isSwipe}" @change="changeFunc" v-if="calcShow('Dialog,Other')"></search>
+      <search :class="{swipe:isSwipe}" @change="changeFunc" v-if="calcShow('Dialog,Other,Setting,Article')"></search>
       <sidebar :class="{swipe:isSwipe}" @swipeoff="isSwipeFunc"></sidebar>
     </v-touch>
     <router-view :current-data="sendData()" :class="{swipe:isSwipe}"></router-view>
     <v-touch v-on:swipeleft="isSwipe=false" v-on:swiperight="isSwipe=true">
-      <footers v-if="calcShow('Dialog,Other')" :class="{swipe:isSwipe}"></footers>
+      <footers v-if="calcShow('Dialog,Other,Setting,Article')" :class="{swipe:isSwipe}"></footers>
     </v-touch>
   </div>
 </template>
@@ -44,10 +44,10 @@
           })
         }
       },
-      changeFunc: function (msg) {  // 搜索关键词
+      changeFunc: function (msg) {  // 接收子组件传递的搜索关键词
         this.keywords = msg
       },
-      calcShow: function (name) {
+      calcShow: function (name) {   // 组件是否显示
         let result = true
         let names = name.split(',')
         for (let i = 0; i < names.length; i++) {
@@ -55,7 +55,7 @@
         }
         return result
       },
-      isSwipeFunc: function (msg) {
+      isSwipeFunc: function (msg) {   // 接收子组件传递的信息并修改isSwipe
         this.isSwipe = msg
       }
     },
