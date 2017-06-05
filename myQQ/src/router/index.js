@@ -9,6 +9,8 @@ import Setting from '@/components/Setting'
 import Information from '@/components/Information'
 import Vuetouch from 'vue-touch'
 import Article from '@/components/Article'
+import Login from '@/components/Login'
+import Register from '@/components/Register'
 
 Vue.use(Router)
 Vue.use(Vuetouch, {name: 'v-touch'})
@@ -54,6 +56,16 @@ export default new Router({
       path: '/article/:id',
       name: 'Article',
       component: Article
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })

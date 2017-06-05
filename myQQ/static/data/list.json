@@ -5,7 +5,7 @@
       "id": "01",
       "src": "../../static/images/1.jpg",
       "url": "/dialog/01",
-      "categoryName": "cate1",
+      "categoryName": "我的好友",
       "nickName": "robot",
       "descName": "robot",
       "isOnline": true,
@@ -24,48 +24,6 @@
           "isSelf": true,
           "content": "Hi~",
           "time": "14:23"
-        }
-      ]
-    },
-    {
-      "id": "02",
-      "src": "../../static/images/1.jpg",
-      "url": "/dialog/02",
-      "categoryName": "cate1",
-      "nickName": "Mr.x",
-      "descName": "x",
-      "isOnline": true,
-      "lastTime": "14:22",
-      "lastContent": "Hi~",
-      "unreadNum": "1",
-      "isRemove": false,
-      "isSwipe": false,
-      "dialog": [
-        {
-          "isSelf": true,
-          "content": "Hi~",
-          "time": "14:22"
-        }
-      ]
-    },
-    {
-      "id": "03",
-      "src": "../../static/images/1.jpg",
-      "url": "/dialog/03",
-      "categoryName": "cate2",
-      "nickName": "Mr.q",
-      "descName": "q",
-      "isOnline": false,
-      "lastTime": "14:21",
-      "lastContent": "Hi~",
-      "unreadNum": "1",
-      "isRemove": false,
-      "isSwipe": false,
-      "dialog": [
-        {
-          "isSelf": true,
-          "content": "Hi~",
-          "time": "14:21"
         }
       ]
     }

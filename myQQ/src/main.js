@@ -7,18 +7,21 @@ import axios from 'axios'
 import VueTouch from 'vue-touch'
 import './assets/css/common.css'
 import './assets/css/animate.css'
+import io from '../static/socket.io/socket.io-1.0.6'
 
 Vue.config.productionTip = false
 // axios.defaults.withCredentials = true
 Vue.prototype.$ajax = axios
+Vue.prototype.ioUrl = 'http://127.0.0.1:3000'
+Vue.prototype.httpServer = io.connect(Vue.prototype.ioUrl)
 Vue.use(VueTouch, {name: 'v-touch'})
 
-router.replace('msg')
+router.replace('login')
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

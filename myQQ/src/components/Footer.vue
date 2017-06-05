@@ -24,37 +24,3 @@
     }
   }
 </script>
-<style>
-  .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    border-top: 1px solid #f3f3f3;
-    background: #fff;
-    transition: .3s linear;
-  }
-  .footer.swipe{
-    margin-left: 80%;
-  }
-
-  .footer ul {
-    height: 30px;
-    line-height: 30px;
-  }
-
-  .footer li {
-    display: inline-block;
-    width: 33%;
-    text-align: center;
-  }
-
-  .footer li a {
-    color: #333;
-  }
-
-  .footer li a.router-link-active {
-    color: #12b7f5;
-  }
-
-</style>

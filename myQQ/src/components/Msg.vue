@@ -54,6 +54,8 @@
       },
       remove: function (sub) {  // 删除
         this.currentData[sub].isRemove = true
+        let tmpObj = {type: 'subMsg', sub: sub}
+        this.httpServer.emit('handleInfo', tmpObj)
       },
       readFunc: function (sub) {  // 重置未读条数
         this.currentData[sub].unreadNum = 0
@@ -71,96 +73,3 @@
     }
   }
 </script>
-
-<style>
-  .msg {
-    color: #333;
-    transition: .3s linear;
-    position: absolute;
-    width: 100%;
-    top: 120px;
-  }
-  .msg.swipe{
-    margin-left: 80%;
-  }
-
-  .msg li {
-    background: #fff;
-    border-top: 1px solid #f3f3f3;
-    overflow: hidden;
-    position: relative;
-    height: 60px;
-  }
-
-  .msg li > div {
-    height: 60px;
-  }
-
-  .msg li > div.swipe a, .msg li > div.swipe .del {
-    margin-left: -50px;
-  }
-
-  .msg li a {
-    padding: 10px 2.5%;
-    line-height: 40px;
-    height: 40px;
-    color: #333;
-    display: block;
-    overflow: hidden;
-    position: absolute;
-    width: 95%;
-    transition: .2s linear;
-  }
-
-  .msg li .headImg {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
-
-  .msg li .personalInfo {
-    line-height: 20px;
-    margin-left: 10px;
-    width: 65%;
-  }
-
-  .msg li .personalInfo .name {
-    font-size: 16px;
-  }
-
-  .msg li .personalInfo .content {
-    color: #666;
-    font-size: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .msg li .otherInfo span {
-    line-height: 20px;
-    display: block;
-    color: #999;
-    text-align: right;
-  }
-
-  .msg li .otherInfo span.unread {
-    background: orangered;
-    color: #fff;
-    border-radius: 2em;
-    text-align: center;
-    width: 30px;
-    float: right;
-  }
-
-  .msg li .del {
-    background: red;
-    color: #fff;
-    position: absolute;
-    height: 60px;
-    line-height: 60px;
-    width: 50px;
-    text-align: center;
-    left: 100%;
-    transition: .2s linear;
-  }
-</style>

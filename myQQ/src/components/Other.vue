@@ -1,5 +1,18 @@
 <template>
-  <div class="other mt10">
+  <div class="other">
+    <div id="loading">
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div id="bkt" @click="backTop()">↑</div>
     <ul>
       <li v-for="item in stringToJson(newsApi)">
         <router-link :to="returnUrl(item.id)" class="newImg">
@@ -12,15 +25,15 @@
 </template>
 
 <script>
-  import io from '../../static/socket.io/socket.io-1.0.6'
   export default {
     name: 'other',
     data () {
       return {
-        newsApi: '',
-        year: '',
-        month: '',
-        day: ''
+        newsApi: '{"stories":[]}',
+        year: 0,
+        month: 0,
+        day: 0,
+        flag: false
       }
     },
     mounted: function () {
@@ -31,12 +44,24 @@
     methods: {
       getNewsList: function () {
         let url = 'http://news.at.zhihu.com/api/4/news/before/' + this.formatDate(this.year, this.month, this.day)
-        this.httpServer = io.connect('http://127.0.0.1:3000')
-        this.httpServer.emit('postUrl', url)
+        let tmpObj = {type: 'postUrl', url: url}
+        this.httpServer.emit('handleInfo', tmpObj)
         this.httpServer.on('result', function (data) {
-          if (this.newsApi.indexOf(data) === -1 || data.indexOf('"body"') === -1) {
-            this.newsApi += data
+          if (data.indexOf('"body"') !== -1) {
+            return
+          }
+          let tmpData = data.split('"stories":[')[1]
+          tmpData = tmpData.slice(0, tmpData.length - 2)
+          if (this.newsApi.indexOf(tmpData) === -1 && tmpData.indexOf('"body"') === -1) {
+            this.newsApi = this.newsApi.slice(0, this.newsApi.length - 2)
+            if (this.newsApi[this.newsApi.length - 1] !== '[') {
+              this.newsApi += ','
+            }
+            this.newsApi += tmpData
+            this.newsApi += ']}'
 //            console.log(this.newsApi)
+            document.getElementById('loading').setAttribute('class', 'hide')
+            this.flag = false
           }
         }.bind(this))
       },
@@ -45,93 +70,79 @@
       },
       getToday: function () {
         let date = new Date()
-        this.year = date.getFullYear().toString()
-        this.month = (date.getMonth() + 1).toString()
-        this.day = date.getDate().toString()
+        this.year = date.getFullYear()
+        this.month = date.getMonth() + 1
+        this.day = date.getDate()
       },
       formatDate: function (year, month, day) {
-        parseInt(month) < 10 ? month = '0' + month : month
-        parseInt(day) < 10 ? day = '0' + day : day
+        month < 10 ? month = '0' + month : month
+        day < 10 ? day = '0' + day : day
         return year + month + day
       },
       stringToJson: function (str) {
-        if (str === '') {
-          return
-        }
         let j = JSON.parse(str)
         return j.stories
       },
       listenScrollFunc: function () {
-        window.addEventListener('scroll', winScroll)
-        function winScroll (e) {
-          if (document.body.scrollTop >= (document.body.scrollHeight * 0.5)) {
-            this.day = parseInt(this.day--)
-            if (this.day < 0) {
-              this.month = parseInt(this.month--)
-              this.year = parseInt(this.year)
-              if ((this.year % 4 === 0 && this.year % 100 !== 0) || this.year % 400 === 0) {
-                // 闰年
-                if (this.month === 2) {
-                  this.day = 29
-                }
-              } else {
-                // 平年
-                if (this.month === 2) {
-                  this.day = 28
-                }
+        window.addEventListener('scroll', this.winScroll)
+      },
+      winScroll: function (e) {
+        let self = this
+        let id = self.$route.params.id
+        if (id !== undefined) {
+          return
+        }
+        if (self.flag) {
+          return
+        }
+        if (document.body.scrollTop >= (document.body.scrollHeight - window.innerHeight)) {
+          self.day = --self.day
+          if (self.day <= 0) {
+            self.month = --self.month
+            switch (self.month) {
+              case 1:
+              case 3:
+              case 5:
+              case 7:
+              case 8:
+              case 10:
+              case 12:
+                self.day = 31
+                break
+              default:
+                self.day = 30
+            }
+            if ((self.year % 4 === 0 && self.year % 100 !== 0) || self.year % 400 === 0) {
+              // 闰年
+              if (self.month === 2) {
+                self.day = 29
+              }
+            } else {
+              // 平年
+              if (self.month === 2) {
+                self.day = 28
               }
             }
           }
+          console.log(self.year, self.month, self.day)
+          document.getElementById('loading').setAttribute('class', '')
+          let url = 'http://news.at.zhihu.com/api/4/news/before/' + self.formatDate(self.year, self.month, self.day)
+          let tmpObj = {type: 'postUrl', url: url}
+          this.httpServer.emit('handleInfo', tmpObj)
+          self.flag = true
         }
+      },
+      backTop: function () {
+        let timer
+        let curTop = document.body.scrollTop
+        let speed = 10
+        timer = setInterval(function () {
+          document.body.scrollTop -= Math.floor(curTop / Math.pow(speed, 2))
+          if (document.body.scrollTop === 0) {
+            clearInterval(timer)
+          }
+        }, speed)
       }
     }
   }
 </script>
-<style>
-  .other {
-    position: absolute;
-    top: 60px;
-    width: 100%;
-    text-align: center;
-    color: #333;
-    transition: .3s linear;
-  }
-
-  .other.swipe {
-    margin-left: 80%;
-  }
-
-  .other ul {
-    width: 96%;
-    margin: 0 auto;
-  }
-
-  .other li {
-    white-space: nowrap;
-    font-size: 0;
-    margin-bottom: 10px;
-  }
-
-  .other li a {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  .other li .newImg {
-    width: 20%;
-  }
-
-  .other li .newImg img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .other li .newTlt {
-    width: 74%;
-    font-size: 14px;
-    white-space: normal;
-    color: #333;
-    text-align: left;
-    margin: 0 3%;
-  }
-</style>
